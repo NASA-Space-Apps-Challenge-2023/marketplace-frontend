@@ -57,7 +57,6 @@ const Ecommerce = () => {
     dispatch(updateSearchFilter(searchTerm));
   };
   // category
-
   const handleCategoryChange = (event) => {
     const category = event.target.value;
     dispatch(updateCategoryFilter(category));
@@ -72,7 +71,7 @@ const Ecommerce = () => {
 
     .filter(
       (product) =>
-        categoryFilter === "all" || product.category === categoryFilter
+        categoryFilter.includes("all") || product.category.some(r=> categoryFilter.includes(r))
     );
 
   if (isLoading) {

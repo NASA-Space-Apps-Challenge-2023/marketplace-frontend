@@ -1087,7 +1087,7 @@ import yellowJumper from "@/assets/images/e-commerce/product-card/yellow-jumper.
 export const products = [
   {
     img: blackJumper,
-    category: "men",
+    category: ["men"],
     name: "Classical Black T-Shirt Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt. The best cotton black branded shirt. The best cotton black branded shirt. The best cotton black branded shirt. The best cotton black branded shirt.",
@@ -1099,7 +1099,7 @@ export const products = [
   },
   {
     img: blackTshirt,
-    category: "men",
+    category: ["men"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1111,7 +1111,7 @@ export const products = [
   },
   {
     img: checkShirt,
-    category: "women",
+    category: ["women"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1123,7 +1123,7 @@ export const products = [
   },
   {
     img: grayJumper,
-    category: "women",
+    category: ["women"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1135,7 +1135,7 @@ export const products = [
   },
   {
     img: grayTshirt,
-    category: "baby",
+    category: ["baby"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1147,7 +1147,7 @@ export const products = [
   },
   {
     img: pinkBlazer,
-    category: "women",
+    category: ["women"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1159,7 +1159,7 @@ export const products = [
   },
   {
     img: redTshirt,
-    category: "women",
+    category: ["women"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1171,7 +1171,7 @@ export const products = [
   },
   {
     img: yellowFrok,
-    category: "women",
+    category: ["women"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
@@ -1183,7 +1183,7 @@ export const products = [
   },
   {
     img: yellowJumper,
-    category: "furniture",
+    category: ["furniture"],
     name: "Classical Black T-Shirt",
     subtitle: "The best cotton black branded shirt.",
     desc: "The best cotton black branded shirt",
