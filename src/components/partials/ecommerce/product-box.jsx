@@ -2,16 +2,9 @@ import React, { useState } from "react";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
 import Badge from "@/components/ui/Badge";
-import Button from "@/components/ui/Button";
-import { current } from "@reduxjs/toolkit";
-import CounterButton from "@/components/partials/ecommerce/counter-button";
-import clsx from "clsx";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateQuantity } from "@/store/api/shop/cartSlice";
 import { Link } from "react-router-dom";
 
 const ProductBox = ({ item, wish }) => {
-  const dispatch = useDispatch();
 
   const {
     name,
@@ -19,16 +12,8 @@ const ProductBox = ({ item, wish }) => {
     img,
     rating,
     subtitle,
-    price,
-    oldPrice,
     percent,
-    id,
   } = item;
-  const cartItems = useSelector((state) => state.cart.items);
-
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
 
   return (
     <Card bodyClass="p-4 rounded-md" className="group ">
@@ -40,39 +25,6 @@ const ProductBox = ({ item, wish }) => {
               src={img}
               alt={name}
             />
-            {percent && (
-              <Badge className=" font-normal bg-danger-600 text-white absolute ltr:left-2 rtl:right-2 top-3">
-                {percent}
-              </Badge>
-            )}
-            <div className="hover-box flex flex-col invisible absolute ltr:right-2 rtl:left-2 top-2 opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 ">
-              {wish ? (
-                <button className="bg-white p-2.5  mb-1.5 rounded-full hover:bg-danger-600  dark:hover:bg-danger-600 hover:text-white hover:dark:text-white dark:text-slate-400">
-                  <Icon icon="heroicons:trash" />
-                </button>
-              ) : (
-                <>
-                  <button className="bg-white p-2.5  mb-1.5 rounded-full">
-                    <Icon
-                      icon="ph:heart-fill"
-                      className="text-slate-400 dark:text-slate-400 hover:text-danger-600 dark:hover:text-danger-600"
-                    />
-                  </button>
-                  <button className="bg-white p-2.5 mb-1.5 rounded-full  ">
-                    <Icon
-                      icon="ph:eye"
-                      className="text-slate-400 dark:text-slate-400 hover:text-danger-600  dark:hover:text-danger-600"
-                    />
-                  </button>
-                  <button className="bg-white p-2.5 mb-1.5 rounded-full ">
-                    <Icon
-                      icon="jam:refresh-reverse"
-                      className="text-slate-400 dark:text-slate-400 hover:text-danger-600  dark:hover:text-danger-600"
-                    />
-                  </button>
-                </>
-              )}
-            </div>
           </div>
         </div>
       </Link>
@@ -95,26 +47,13 @@ const ProductBox = ({ item, wish }) => {
         <p className="text-slate-500 dark:text-slate-500  text-[11px]  font-normal mt-1.5">
           {subtitle}
         </p>
-        <p className="pb-4">
-          <span className="text-slate-900 dark:text-slate-300 text-base	font-medium mt-2	 ltr:mr-2 rtl:mr-2">
-            ${price}
-          </span>
-          <del className="text-slate-500 dark:text-slate-500  font-normal text-base		">
-            {oldPrice}
-          </del>
-        </p>
-        {cartItems.some((cartItem) => cartItem.id === id) ? (
-          <CounterButton product={item} />
-        ) : (
-          <Button
-            onClick={() => handleAddToCart(item)}
-            disabled={cartItems.some((cartItem) => cartItem.id === id)}
-            text="Add to Cart"
-            icon="heroicons:shopping-bag"
-            className="btn-outline-dark w-full btn-sm  font-medium hover:bg-slate-900 hover:text-white dark:hover:text-white  dark:hover:bg-slate-700 "
-            iconClass=" text-sm leading-none"
-          />
-        )}
+        <div className="py-2">
+          {percent && (
+                <Badge className=" font-normal bg-danger-600 text-white">
+                  {percent}
+                </Badge>
+              )}
+        </div>
       </div>
     </Card>
   );
