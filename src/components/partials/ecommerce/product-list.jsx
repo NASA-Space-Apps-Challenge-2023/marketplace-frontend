@@ -2,9 +2,8 @@ import React from "react";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
 import Badge from "@/components/ui/Badge";
-import CounterButton from "@/components/partials/ecommerce/counter-button";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateQuantity } from "@/store/api/shop/cartSlice";
+import { addToCart } from "@/store/api/shop/cartSlice";
 import { Link } from "react-router-dom";
 const ProductList = ({ item }) => {
   const dispatch = useDispatch();
