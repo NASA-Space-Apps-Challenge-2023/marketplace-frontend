@@ -135,7 +135,6 @@ import { Widget, addResponseMessage } from "react-chat-widget";
 import 'react-chat-widget/lib/styles.css';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleNewUserMessage = newMessage => {
@@ -149,7 +148,7 @@ function App() {
   };
 
   const getCustomLauncher = (handleToggle) =>
-    <button className="bg-[#0060df] text-white p-3 rounded-full text-3xl w-15 h-15 max-w-[55px] self-end mt-3 shadow-md shadow-black" onClick={handleToggle}><Icon icon={isOpen? "ph:x" : "material-symbols:robot-2-outline-rounded"}/></button>
+    <button className="bg-[#0060df] text-white p-3 rounded-full text-3xl w-15 h-15 max-w-[55px] self-end mt-3 shadow-md shadow-black" onClick={handleToggle}><Icon icon="material-symbols:robot-2-outline-rounded"/></button>
 
   return (
     <>

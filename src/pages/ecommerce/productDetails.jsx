@@ -4,11 +4,7 @@ import Icon from "@/components/ui/Icon";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { Tab } from "@headlessui/react";
-import CounterButton from "@/components/partials/ecommerce/counter-button";
 import blackJumper from "@/assets/images/e-commerce/product-card/classical-black-tshirt.png";
-import one from "@/assets/images/e-commerce/productDetails/1.png";
-import two from "@/assets/images/e-commerce/productDetails/2.png";
-import three from "@/assets/images/e-commerce/productDetails/3.png";
 import gmail from "@/assets/images/e-commerce/productDetails/gmail.svg";
 import facebook from "@/assets/images/e-commerce/productDetails/facebook.svg";
 import twitter from "@/assets/images/e-commerce/productDetails/twitter.svg";
@@ -24,14 +20,6 @@ import Alert from "@/components/ui/Alert";
 import LoaderCircle from "@/components/Loader-circle";
 
 export const ProductDetails = () => {
-  // const colors = [
-  //   { code: "Black" },
-  //   { code: "Pink" },
-  //   { code: "Orange" },
-  //   { code: "Red" },
-  //   { code: "Yellow" },
-  // ];
-  // const sizes = [{ code: "S" }, { code: "M" }, { code: "L" }, { code: "XL" }];
 
   const lists = [
     {
@@ -123,10 +111,13 @@ export const ProductDetails = () => {
     },
   ];
 
+  const [text, setText] = useState("");
+  const [contributions, setContributions] = useState([]);
+
+  const user = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
 
-  // const [color, setColor] = useState("Black");
-  // const [size, setSize] = useState("S");
   let { id } = useParams();
   const {
     data: getProduct,
@@ -186,6 +177,62 @@ export const ProductDetails = () => {
     );
   }
 
+  const handleContribution = () =>{
+    setContributions(prev => [{email: user.email, text, date: (new Date()).toLocaleDateString(), likes: 0, responses: 0},...prev]);
+    setText("");
+  }
+
+  const displayContributions = contributions.map((c,i)=>{
+    return (
+      <div className="flex space-x-3 rtl:space-x-reverse " key={i}>
+        <div className=" h-14 w-14 rounded-full object-cover bg-white ring-1 overflow-hidden flex-none">
+          <img
+            className="h-full w-full object-contain"
+            src={blackJumper}
+          />
+        </div>
+        <div className="w-[100%]">
+          {" "}
+          <div>
+            <p className="text-slate-900  dark:text-slate-300 font-medium text-sm lg:text-base pb-1">
+              {c.user}
+            </p>
+            <p className="text-slate-500 dark:text-slate-400 font-normal text-xs  pb-1">
+              {c.date}
+            </p>
+            <p className="pb-4 text-sm  lg:text-base text-slate-500 dark:text-slate-400">
+              {c.text}
+            </p>
+            <div className="flex space-x-2 rtl:space-x-reverse pb-3">
+              <p className="font-normal text-sm lg:text-base text-slate-500 dark:text-slate-400">
+                Info:
+              </p>
+              <p className="font-medium text-sm lg:text-base text-[#10B26C] ">
+                Verified Purchase
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-12 ">
+            <div className="col-span-12 flex justify-end space-x-4 rtl:space-x-reverse">
+              <p className="flex items-center space-x-2 rtl:space-x-reverse ">
+                <span className="cursor-pointer ">
+                  <Icon icon="heroicons:hand-thumb-up" />
+                </span>
+                <span>{c.likes}</span>
+              </p>
+              <p className="flex items-center space-x-2 rtl:space-x-reverse ">
+                <span className="cursor-pointer ">
+                  <Icon icon="carbon:reply" />
+                </span>
+                <span>{c.responses}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  })
+
   return (
     <div className="w-full bg-white dark:bg-slate-800 p-6 rounded-lg">
       <div className="pb-5">
@@ -200,12 +247,8 @@ export const ProductDetails = () => {
               </h1>
               <p className="flex items-center text-slate-900 dark:text-slate-300  font-normal text-sm lg:text-base space-x-1.5 rtl:space-x-reverse">
                 <Icon icon="ph:star-fill" className="text-yellow-400" />
-                {/* <Icon icon="ph:star-fill" className="text-yellow-400" />
-                <Icon icon="ph:star-fill" className="text-yellow-400" />
-                <Icon icon="ph:star-fill" className="text-yellow-400" />
-                <Icon icon="ph:star-fill" className="text-slate-300/80" /> */}
                 <span className="ltr:pl-2 rtl:pr-2 text-slate-500 dark:text-slate-400">
-                  ({product?.rating || productExample.rating} ratings)
+                  {product?.rating || productExample.rating}
                 </span>
               </p>
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
@@ -243,16 +286,7 @@ export const ProductDetails = () => {
                 iconClass=" text-sm leading-none"
                 link={productExample.project_url_deployment}
               />
-              {/* <div>
-                <div className="pb-2 flex items-center space-x-2 rtl:space-x-reverse mb-3">
-                  <p className="font-normal text-sm lg:text-base text-slate-500 dark:text-slate-400 ">
-                    Skills:
-                  </p>
-                  <p className="font-medium text-base text-slate-900 dark:text-slate-300 ">
-                    {product?.required_skills || productExample.required_skills.join(", ")}
-                  </p>
-                </div>
-              </div> */}
+              
             </div>
             <div className="w-full border-t border-slate-300 dark:border-slate-600"></div>
 
@@ -294,21 +328,6 @@ export const ProductDetails = () => {
                 className="btn-outline-dark w-[180px] btn-sm  font-medium hover:bg-slate-900 dark:text-white hover:text-white dark:hover:text-white  dark:hover:bg-slate-700 flex items-center"
                 iconClass=" text-sm leading-none"
               />
-              {/* <Button
-                text="Buy Now"
-                className="btn-outline-dark w-[180px] btn-sm bg-slate-900 dark:bg-slate-800  font-medium hover:bg-white text-white hover:text-slate-900 dark:hover:text-white  dark:hover:!bg-slate-700 flex items-center"
-                iconClass=" text-sm leading-none"
-              />
-              <Button
-                icon="octicon:heart-16"
-                className="btn-outline-secondary w-[40px] border dark:border-slate-600 dark:hover:border-slate-600 btn-sm  font-medium hover:bg-slate-900 hover:text-white dark:hover:text-white  dark:hover:bg-slate-700 flex items-center"
-                iconClass=" text-sm leading-none"
-              />
-              <Button
-                icon="eva:repeat-fill"
-                className="btn-outline-secondary w-[40px] border dark:border-slate-600 dark:hover:border-slate-600 btn-sm  font-medium hover:bg-slate-900 hover:text-white dark:hover:text-white  dark:hover:bg-slate-700 flex items-center"
-                iconClass=" text-sm leading-none"
-              /> */}
             </div>
             <div className="flex space-x-3 rtl:space-x-reverse ">
               <p className="font-normal text-sm lg:text-base text-slate-500 dark:text-slate-400">
@@ -450,41 +469,22 @@ export const ProductDetails = () => {
         </div>
         <div className="border border-1 dark:border-slate-700 rounded p-6">
           <h6 className="text-slate-900 dark:text-slate-300 pb-6 text-lg lg:text-xl">
-            Reviews & Ratings
+            Discussion Forum
           </h6>
           <div className="space-y-12">
-            <div className="bg-secondary-100 dark:bg-slate-700 p-6 rounded grid grid-cols-12 	">
-              <div className="col-span-12 items-center md:col-span-6 flex space-x-3 justify-center md:justify-start rtl:space-x-reverse order-2 md:order-1 mt-3 md:mt-0">
-                <div className="font-medium items-center flex ">
-                  <p className="text-slate-900 dark:text-slate-300 text-base lg:text-lg">
-                    {product?.rating || productExample.rating}
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm lg:text-base">
-                    /5
-                  </p>
-                </div>
-                <div className="flex items-center md:justify-start text-slate-900 dark:text-slate-300 font-normal text-sm lg:text-base">
-                  <div className="flex items-center space-x-1.5">
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    {/* <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-slate-300/80" /> */}
-                  </div>
-                  <div className=" text-slate-500 dark:text-slate-400">
-                    (789 reviews)
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12 md:col-span-6 flex justify-center md:justify-end items-center order-1 md:order-2">
+            <div className="bg-secondary-100 dark:bg-slate-700 p-2 rounded flex items-center justify-between">
+              <input type="text" className="w-[90%] px-1 py-2 rounded" placeholder="Text your contribution here..." onChange={(ev)=>setText(ev.target.value)} value={text}/>
+              <div className="flex justify-center md:justify-end items-center">
                 <button
                   type="button"
-                  className="bg-yellow-500 text-white rounded px-6 py-3 text-sm lg:text-base"
+                  className="bg-success-500 text-white rounded px-6 py-3 text-sm lg:text-base"
+                  onClick={handleContribution}
                 >
-                  Rate this product
+                  Send
                 </button>
               </div>
             </div>
+            {displayContributions}
             <div className="flex space-x-3 rtl:space-x-reverse ">
               <div className=" h-14 w-14 rounded-full object-cover bg-white ring-1 overflow-hidden flex-none">
                 <img
@@ -500,13 +500,6 @@ export const ProductDetails = () => {
                   </p>
                   <p className="text-slate-500 dark:text-slate-400 font-normal text-xs  pb-1">
                     08-03-2023
-                  </p>
-                  <p className="flex items-center text-slate-900 dark:text-slate-300  font-normal text-sm lg:text-base space-x-1.5 rtl:space-x-reverse pb-3">
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
                   </p>
                   <p className="pb-4 text-sm  lg:text-base text-slate-500 dark:text-slate-400">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
@@ -557,13 +550,6 @@ export const ProductDetails = () => {
                   <p className="text-slate-500 dark:text-slate-400 font-normal text-xs  pb-1">
                     08-03-2023
                   </p>
-                  <p className="flex items-center text-slate-900 dark:text-slate-300  font-normal text-sm lg:text-base space-x-1.5 rtl:space-x-reverse pb-3">
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                    <Icon icon="ph:star-fill" className="text-yellow-400" />
-                  </p>
                   <p className="pb-4 text-sm lg:text-base text-slate-500 dark:text-slate-400">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                     diam nonumy eirmod tempor invidunt ut labore et dolore
@@ -578,36 +564,7 @@ export const ProductDetails = () => {
                       Verified Purchase
                     </p>
                   </div>
-                </div>
-                <div className="grid grid-cols-12">
-                  <div className=" col-span-12 mb-3">
-                    <div className="flex space-x-2 rtl:space-x-reverse mb-9">
-                      <div className=" h-[90px] w-[90px] rounded bg-slate-100 p-1 overflow-hidden ">
-                        <img
-                          className="h-full w-full object-contain"
-                          src={three}
-                        />
-                      </div>
-                      <div className=" h-[90px] w-[90px] rounded bg-slate-100 overflow-hidden p-1">
-                        <img
-                          className="h-full w-full object-contain"
-                          src={one}
-                        />
-                      </div>
-                      <div className=" h-[90px] w-[90px] rounded bg-slate-100 overflow-hidden p-1">
-                        <img
-                          className="h-full w-full object-contain"
-                          src={two}
-                        />
-                      </div>
-                    </div>
-                    <div className=" max-h-[400px] max-w-[346px] rounded  bg-slate-100 overflow-hidden p-1">
-                      <img
-                        className="h-full w-full object-contain"
-                        src={three}
-                      />
-                    </div>
-                  </div>
+                  <div className="grid grid-cols-12 ">
                   <div className="col-span-12 flex justify-end space-x-4 rtl:space-x-reverse">
                     <p className="flex items-center space-x-2 rtl:space-x-reverse ">
                       <span className="cursor-pointer ">
@@ -622,6 +579,7 @@ export const ProductDetails = () => {
                       <span>00</span>
                     </p>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
