@@ -16,7 +16,7 @@ import MobileFooter from "@/components/partials/footer/MobileFooter";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import Loading from "@/components/Loading";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 const Layout = () => {
   const { width, breakpoints } = useWidth();
   const [collapsed] = useSidebar();
@@ -67,7 +67,6 @@ const Layout = () => {
           onClick={() => setMobileMenu(false)}
         ></div>
       )}
-      <Settings />
       <div
         className={`content-wrapper transition-all duration-150 ${
           width > 1280 ? switchHeaderClass() : ""

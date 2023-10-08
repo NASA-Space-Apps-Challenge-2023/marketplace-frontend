@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/Icon";
 import Card from "@/components/ui/Card";
@@ -8,6 +8,41 @@ import BasicArea from "../chart/appex-chart/BasicArea";
 import ProfileImage from "@/assets/images/users/user-1.jpg";
 
 const profile = () => {
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState("Albert Flores");
+  const [ocupation, setOcupation] = useState("Front End Developer");
+  const [projectsOwned, setProjectsOwned] = useState("2");
+  const [collaborations, setCollaborations] = useState("200");
+  const [availability, setAvailability] = useState("Weekdays after 6pm");
+  const [email, setEmail] = useState("info-500@dashcode.com");
+  const [skills, setSkills] = useState(["Python", "FastAPI"]);
+  const [interests, setInterests] = useState([ "API Development", "Machine Learning"]);
+
+  const nameAndOcupation = edit ? 
+  (
+    <>
+      <div className="flex flex-col gap-1">
+        <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
+          EDITING!
+        </div>
+        <input className="text-2xl font-medium text-slate-900 dark:text-slate-200 max-w-[150px]" value={name} onChange={ev=>setName(ev.target.value)}/>
+        <input className="text-sm font-light text-slate-600 dark:text-slate-400 max-w-[150px]" value={ocupation} onChange={ev=>setOcupation(ev.target.value)}/>
+      </div>
+    </>
+  ) 
+  :
+  (
+    <div className="flex-1">
+      <div className="text-2xl font-medium text-slate-900 dark:text-slate-200 mb-[3px]">
+        {name}
+      </div>
+      <div className="text-sm font-light text-slate-600 dark:text-slate-400">
+        {ocupation}
+      </div>
+    </div>
+  )
+
+
   return (
     <div>
       <div className="space-y-5 profile-page">
@@ -25,47 +60,41 @@ const profile = () => {
                   <Link
                     to="#"
                     className="absolute right-2 h-8 w-8 bg-slate-50 text-slate-600 rounded-full shadow-sm flex flex-col items-center justify-center md:top-[140px] top-[100px]"
+                    onClick={()=>setEdit(prev=>!prev)}
                   >
-                    <Icon icon="heroicons:pencil-square" />
+                    <Icon icon={edit? "mingcute:save-line":"heroicons:pencil-square"} />
                   </Link>
                 </div>
               </div>
-              <div className="flex-1">
-                <div className="text-2xl font-medium text-slate-900 dark:text-slate-200 mb-[3px]">
-                  Albert Flores
-                </div>
-                <div className="text-sm font-light text-slate-600 dark:text-slate-400">
-                  Front End Developer
-                </div>
-              </div>
+              {nameAndOcupation}
             </div>
           </div>
 
           <div className="profile-info-500 md:flex md:text-start text-center flex-1 max-w-[516px] md:space-y-0 space-y-4">
             <div className="flex-1">
               <div className="text-base text-slate-900 dark:text-slate-300 font-medium mb-1">
-                $32,400
+                {projectsOwned}
               </div>
               <div className="text-sm text-slate-600 font-light dark:text-slate-300">
-                Total Balance
+                Projects owned
               </div>
             </div>
 
             <div className="flex-1">
               <div className="text-base text-slate-900 dark:text-slate-300 font-medium mb-1">
-                200
+                {collaborations}
               </div>
               <div className="text-sm text-slate-600 font-light dark:text-slate-300">
-                Board Card
+                Collaborations
               </div>
             </div>
 
             <div className="flex-1">
               <div className="text-base text-slate-900 dark:text-slate-300 font-medium mb-1">
-                3200
+                {availability}
               </div>
               <div className="text-sm text-slate-600 font-light dark:text-slate-300">
-                Calender Events
+                Availability
               </div>
             </div>
           </div>
@@ -86,7 +115,7 @@ const profile = () => {
                       href="mailto:someone@example.com"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      info-500@dashcode.com
+                      {email}
                     </a>
                   </div>
                 </li>
@@ -97,13 +126,13 @@ const profile = () => {
                   </div>
                   <div className="flex-1">
                     <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
-                      PHONE
+                      SKILLS
                     </div>
                     <a
                       href="tel:0189749676767"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      +1-202-555-0151
+                      {skills.join(", ")}
                     </a>
                   </div>
                 </li>
@@ -114,10 +143,10 @@ const profile = () => {
                   </div>
                   <div className="flex-1">
                     <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
-                      LOCATION
+                      INTERESTS
                     </div>
                     <div className="text-base text-slate-600 dark:text-slate-50">
-                      Home# 320/N, Road# 71/B, Mohakhali, Dhaka-1207, Bangladesh
+                      {interests.join(", ")}
                     </div>
                   </div>
                 </li>
