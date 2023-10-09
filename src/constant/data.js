@@ -34,6 +34,12 @@ export const menuItems = [
     icon: "heroicons-outline:cog-6-tooth",
     link: "settings",
   },
+  {
+    title: "Faq",
+    isHide: false,
+    icon: "heroicons-outline:information-circle",
+    link: "faq",
+  },
 ];
 
 export const topMenu = [
