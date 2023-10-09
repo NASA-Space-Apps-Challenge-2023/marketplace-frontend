@@ -1,8 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Icon from "@/components/ui/Icon";
-import SimpleBar from "simplebar-react";
 import { useSelector, useDispatch } from "react-redux";
-import { motion, useCycle } from "framer-motion";
+import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { removeFromCart, updateQuantity } from "@/store/api/shop/cartSlice";
 import CartItem from "./cart-item";

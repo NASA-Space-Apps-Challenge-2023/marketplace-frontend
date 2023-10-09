@@ -49,7 +49,7 @@ const LoginForm = () => {
       }
 
       dispatch(setUser(data));
-      navigate("/dashboard");
+      navigate("/projects");
       localStorage.setItem("user", JSON.stringify(response.data.user));
       toast.success("Login Successful");
     } catch (error) {

@@ -39,7 +39,7 @@ const MobileMenu = ({ className = "custom-class" }) => {
       className={`${className} fixed  top-0 bg-white dark:bg-slate-800 shadow-lg  h-full   w-[248px]`}
     >
       <div className="logo-segment flex justify-between items-center bg-white dark:bg-slate-800 z-[9] h-[85px]  px-4 ">
-        <Link to="/dashboard">
+        <Link to="/projects">
           <div className="flex items-center space-x-4">
             <div className="logo-icon">
               {!isDark && !isSemiDark ? (
@@ -50,7 +50,7 @@ const MobileMenu = ({ className = "custom-class" }) => {
             </div>
             <div>
               <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-                DashCode
+                SciCollab
               </h1>
             </div>
           </div>
