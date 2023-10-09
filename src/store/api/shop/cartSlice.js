@@ -7,7 +7,7 @@ const initialCartState = {
   totalPrice: 0,
   filters: {
     search: "",
-    category: "all",
+    category: ["all"],
     price: 0,
   },
 };
@@ -58,7 +58,19 @@ const cartSlice = createSlice({
         state.filters.search = action.payload;
       })
       .addCase(updateCategoryFilter, (state, action) => {
-        state.filters.category = action.payload;
+        const category = action.payload;
+        if (category === "all"){
+          state.filters.category=["all"];
+        }else{
+          let catList = state.filters.category.filter(cat=>cat!=="all");
+          const chosen = catList.includes(category);
+          if(chosen){
+            catList = catList.filter(cat=>cat !== category);
+          } else{
+            catList.push(category);
+          }
+          state.filters.category = catList.length === 0 ? ["all"] : catList;
+        }
       });
   },
 });

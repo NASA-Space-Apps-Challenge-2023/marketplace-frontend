@@ -12,7 +12,7 @@ function CatagoriesFilterCheckbox({
           type="checkbox"
           className="table-checkbox"
           value={category.value}
-          checked={categoryFilter === category.value}
+          checked={categoryFilter.includes(category.value)}
           onChange={handleCategoryChange}
         />
         <span>{category.label}</span>

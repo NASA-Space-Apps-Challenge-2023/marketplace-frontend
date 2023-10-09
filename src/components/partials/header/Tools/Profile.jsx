@@ -44,6 +44,14 @@ const Profile = () => {
 
   const ProfileMenu = [
     {
+      label: "Projects",
+      icon: "heroicons-outline:clipboard",
+
+      action: () => {
+        navigate("/projects");
+      },
+    },
+    {
       label: "Profile",
       icon: "heroicons-outline:user",
 
@@ -59,17 +67,10 @@ const Profile = () => {
       },
     },
     {
-      label: "Email",
-      icon: "heroicons-outline:mail",
+      label: "Kanban",
+      icon: "heroicons-outline:view-boards",
       action: () => {
-        navigate("/email");
-      },
-    },
-    {
-      label: "Todo",
-      icon: "heroicons-outline:clipboard-check",
-      action: () => {
-        navigate("/todo");
+        navigate("/kanban");
       },
     },
     {
@@ -77,13 +78,6 @@ const Profile = () => {
       icon: "heroicons-outline:cog",
       action: () => {
         navigate("/settings");
-      },
-    },
-    {
-      label: "Price",
-      icon: "heroicons-outline:credit-card",
-      action: () => {
-        navigate("/pricing");
       },
     },
     {

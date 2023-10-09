@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "@/components/ui/Card";
 import InputGroup from "@/components/ui/InputGroup";
@@ -28,6 +28,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import Alert from "@/components/ui/Alert";
 import LoaderCircle from "@/components/Loader-circle";
+import { fetchAllProjects } from "@/store/api/shop/projectApiSlice";
 
 const Ecommerce = () => {
   // all products get
@@ -36,6 +37,16 @@ const Ecommerce = () => {
 
   const { data: getProduct, isLoading, isError, error } = useGetProductsQuery();
 
+  useEffect(() => {
+    console.log("Fetching projects...");
+    dispatch(fetchAllProjects())
+      .then(() => console.log("Projects fetched successfully!"))
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, [dispatch]);
+
+  const projects = useSelector((state) => state.projectApi);
+
+  console.log("Projects from Redux:", projects);
   const products = getProduct?.products || [];
   const searchFilter = useSelector((state) => state.cart.filters.search);
   const categoryFilter = useSelector((state) => state.cart.filters.category);
@@ -57,13 +68,22 @@ const Ecommerce = () => {
     dispatch(updateSearchFilter(searchTerm));
   };
   // category
-
   const handleCategoryChange = (event) => {
     const category = event.target.value;
     dispatch(updateCategoryFilter(category));
   };
 
   const [view, setView] = useState("grid");
+  const [showAll, setShowAll] = useState(false);
+
+  const showCategories = categories.map((category, i) => (
+    <CatagoriesFilterCheckbox
+      key={`cata_key_${i}`}
+      categoryFilter={categoryFilter}
+      handleCategoryChange={handleCategoryChange}
+      category={category}
+    />
+  ))
 
   const filteredProducts = products
     .filter((product) =>
@@ -72,7 +92,7 @@ const Ecommerce = () => {
 
     .filter(
       (product) =>
-        categoryFilter === "all" || product.category === categoryFilter
+        categoryFilter.includes("all") || product.category.some(r=> categoryFilter.includes(r))
     );
 
   if (isLoading) {
@@ -98,39 +118,11 @@ const Ecommerce = () => {
               <div className="text-slate-800 dark:text-slate-200 font-semibold text-xs uppercase pt-5 pb-2">
                 categories
               </div>
-              {categories.map((category, i) => (
-                <CatagoriesFilterCheckbox
-                  key={`cata_key_${i}`}
-                  categoryFilter={categoryFilter}
-                  handleCategoryChange={handleCategoryChange}
-                  category={category}
-                />
-              ))}
-
-              <button className="text-xs font-medium text-slate-900  dark:text-slate-300 pt-1">
-                View Less
+              <button className="text-xs font-medium text-slate-900  dark:text-slate-300 pt-1" onClick={()=>setShowAll(prev=>!prev)}>
+                {showAll? "View Less" : "View All"}
               </button>
-            </div>
-            <div className="space-y-2 ltr:-ml-6 ltr:pl-6 rtl:-mr-6 rtl:pr-6">
-              <div className="text-slate-800 dark:text-slate-200 font-semibold text-xs uppercase pt-5 pb-2">
-                brands
-              </div>
-              {brands.map((brand, i) => (
-                <BrandsCheckbox key={`brand_key_${i}`} brand={brand} />
-              ))}
+              {showAll? showCategories : showCategories.slice(0,11)}
 
-              <button className="text-xs font-medium text-slate-900  dark:text-slate-300 pt-1">
-                View Less
-              </button>
-            </div>
-            <div className="space-y-2 ltr:-ml-6 ltr:pl-6 rtl:-mr-6 rtl:pr-6">
-              <div className="text-slate-800 dark:text-slate-200 font-semibold text-xs uppercase pt-5 pb-2">
-                price
-              </div>
-              {price.map((item, i) => (
-                <PriceCheckbox key={`price_key_${i}`} item={item} />
-              ))}
-              {/* tests */}
             </div>
             <div className="space-y-2 ltr:-ml-6 ltr:pl-6 rtl:-mr-6 rtl:pr-6">
               <div className="text-slate-800 dark:text-slate-200 font-semibold text-xs uppercase pt-5 pb-2">
@@ -175,22 +167,6 @@ const Ecommerce = () => {
                 </button>
               </div>
               <div className="flex-none sm:flex items-center sm:space-x-4 sm:rtl:space-x-reverse sm:space-y-0 space-y-2">
-                <div className=" flex space-x-3  rtl:space-x-reverse  items-center">
-                  <label
-                    htmlFor="select"
-                    className="text-sm font-normal text-[#68768A] "
-                  >
-                    Show:
-                  </label>
-                  <Select
-                    className="rounded text-sm font-normal text-[#68768A]"
-                    classNamePrefix="select"
-                    defaultValue={selectOptions[0]}
-                    options={selectOptions}
-                    styles={styles}
-                    id="hh"
-                  />
-                </div>
                 <div className=" flex space-x-3  rtl:space-x-reverse items-center">
                   <label
                     htmlFor="select"
