@@ -146,20 +146,11 @@ function App() {
             <Route path="/lock-screen3" element={<LockScreen3 />} />
           </Route>
           <Route path="/*" element={<Layout />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="ecommerce" element={<Ecommerce />} />
-            <Route path="crm" element={<CrmPage />} />
-            <Route path="project" element={<ProjectPage />} />
-            <Route path="banking" element={<BankingPage />} />
             {/* App pages */}
-            <Route path="todo" element={<TodoPage />} />
-            <Route path="email" element={<EmailPage />} />
             <Route path="chat" element={<ChatPage />} />
-            <Route path="projects" element={<ProjectPostPage />} />
-            <Route path={"projects/:id"} element={<ProjectDetailsPage />} />
-            <Route path="project-details" element={<ProjectDetailsPage />} />
+            <Route path="projects" element={<EcommercePage />} />
+            <Route path={"projects/:id"} element={<ProductDetails />} />
             <Route path="kanban" element={<KanbanPage />} />
-            <Route path="calender" element={<CalenderPage />} />
             {/* Components pages */}
             <Route path="button" element={<Button />} />
             <Route path="dropdown" element={<Dropdown />} />
@@ -214,18 +205,10 @@ function App() {
             <Route path="notifications" element={<NotificationPage />} />
             <Route path="changelog" element={<ChangelogPage />} />
 
-            <Route path="products" element={<EcommercePage />} />
-            <Route path="products/:id" element={<ProductDetails />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="order-details" element={<OrderDetails />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="add-product" element={<AddProduct />} />
-            <Route path="edit-product" element={<EditProduct />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="sellers" element={<Sellers />} />
-            <Route path="invoice-ecommerce" element={<InvoiceEPage />} />
+            <Route path="projects" element={<EcommercePage />} />
+            <Route path="projects/:id" element={<ProductDetails />} />
+            <Route path="add-project" element={<AddProduct />} />
+            <Route path="edit-project" element={<EditProduct />} />
 
             <Route path="*" element={<Navigate to="/404" />} />
           </Route>
