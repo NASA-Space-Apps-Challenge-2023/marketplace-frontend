@@ -2,8 +2,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "";
-const USERS_API_URL = `${API_BASE_URL}/users`;
+const API_BASE_URL = "http://142.93.198.98:4269"; // Replace with your FastAPI server URL
+const USERS_API_URL = `${API_BASE_URL}/user`;
 
 // Async thunk to fetch user data
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (userId) => {

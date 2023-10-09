@@ -2,18 +2,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "";
-const PROJECTS_API_URL = `${API_BASE_URL}/projects`;
+const API_BASE_URL = "http://142.93.198.98:4269"; // Updated API URL
+const PROJECTS_API_URL = `${API_BASE_URL}/project`; // Updated API endpoint
 
 // Async thunk to fetch all projects
 export const fetchAllProjects = createAsyncThunk("project/fetchAllProjects", async () => {
-    try {
-      const response = await axios.get(`${PROJECTS_API_URL}`);
-      return response.data;
-    } catch (error) {
-      throw Error("Failed to fetch projects");
-    }
-  });
+  try {
+    const response = await axios.get(PROJECTS_API_URL);
+    return response.data;
+  } catch (error) {
+    throw Error("Failed to fetch projects");
+  }
+});
 
 // Async thunk to fetch project data
 export const fetchProjectData = createAsyncThunk("project/fetchProjectData", async (projectId) => {

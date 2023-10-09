@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "@/components/ui/Card";
 import InputGroup from "@/components/ui/InputGroup";
@@ -28,6 +28,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import Alert from "@/components/ui/Alert";
 import LoaderCircle from "@/components/Loader-circle";
+import { fetchAllProjects } from "@/store/api/shop/projectApiSlice";
 
 const Ecommerce = () => {
   // all products get
@@ -36,6 +37,16 @@ const Ecommerce = () => {
 
   const { data: getProduct, isLoading, isError, error } = useGetProductsQuery();
 
+  useEffect(() => {
+    console.log("Fetching projects...");
+    dispatch(fetchAllProjects())
+      .then(() => console.log("Projects fetched successfully!"))
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, [dispatch]);
+
+  const projects = useSelector((state) => state.projectApi);
+
+  console.log("Projects from Redux:", projects);
   const products = getProduct?.products || [];
   const searchFilter = useSelector((state) => state.cart.filters.search);
   const categoryFilter = useSelector((state) => state.cart.filters.category);
